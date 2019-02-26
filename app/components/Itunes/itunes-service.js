@@ -1,38 +1,24 @@
 import Song from "../../models/Song.js";
 
-
-let _state = {
-  songs: []
-}
-
-let _subscribers = {
-  songs: []
-}
-
-function setState(prop, data) {
-  _state[prop] = data
-  _subscribers[prop].forEach(fn => fn())
-}
+let _songs = []
+//these should be songs from the bcw-server
+let _playlist = []
 
 //DO NOT MODIFY
 class ItunesService {
   get Songs() {
-    return _state.songs
+    return _songs.map(s => new Song(s))
   }
 
-  getMusicByArtist(artist) {
+  getMusicByArtist(artist, callback) {
     var url = 'https://itunes.apple.com/search?callback=?&term=' + artist;
     // @ts-ignore
     $.getJSON(url)
       .then(res => {
-        let results = res.results.map(s => new Song(s))
-        setState('songs', results)
+        _songs = res.results.map(s => new Song(s))
+        callback()
       })
       .catch(err => console.log(err))
-  }
-
-  addSubscriber(prop, fn) {
-    _subscribers[prop].push(fn)
   }
 }
 

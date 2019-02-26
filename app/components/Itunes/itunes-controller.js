@@ -13,7 +13,7 @@ function drawSongs() {
 //PUBLIC
 class ItunesController {
   constructor() {
-    //BE SURE TO REGISTER YOUR SUBSCRIBERS!!!!!!!
+
   }
 
 
@@ -23,7 +23,7 @@ class ItunesController {
     var artist = e.target.artist.value;
     //changes the button to loading while songs load
     document.querySelector('#get-music-button').textContent = 'LOADING....'
-    itunesService.getMusicByArtist(artist)
+    itunesService.getMusicByArtist(artist, drawSongs)
   }
 }
 

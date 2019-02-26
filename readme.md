@@ -37,14 +37,42 @@ Styling is a hard area to grade so at a bare minimum you will need to show your 
   <img class="img-responsive" src="https://bcw.blob.core.windows.net/public/img/mytunes.jpg" />
 </div>
 
+In order to use this API you will need to specify a user name in place of your name, this will bind the songs to an individual users playlist. So if I get cars for https://bcw-gregslist.herokuapp.com/api/mark/songs I get all the songs for the user mark.
+
+#### Get all
+https://bcw-gregslist.herokuapp.com/api/:YOURNAME/songs
+
+#### Post
+https://bcw-gregslist.herokuapp.com/api/:YOURNAME/songs
+
+#### Update
+https://bcw-gregslist.herokuapp.com/api/:YOURNAME/songs/:songId
+
+#### Delete
+https://bcw-gregslist.herokuapp.com/api/:YOURNAME/songs/:songId
+
+
+This is the object format expected to create a song: 
+
+let song = {
+    artist: "Taylor Swift",
+    album: "1989",
+    title: "Shake It Off",
+    preview: "link to song preview",
+    price: ".80",
+    albumArt: "link to album art"
+}
+
 
 ## Requirements
  - Visualization: 
     - All songs are rendered when search button is clicked
     - Bootstrap is utilized to provide styling to the page
     - Each property of the song object is displayed (title, artist, price, album art, preview (hint: "html audio tag"))
+    - Users have a playlist with the same functionality as the searched songs list
   - Functionality: 
     - A new search will clear out old results
+    - Users have a playlist they can add and remove songs from
 
     
 
