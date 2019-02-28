@@ -1,7 +1,6 @@
 import Song from "../../models/Song.js";
 
 let _songs = []
-//these should be songs from the bcw-server 
 let _selectedSong = {}
 let _playlist = []
 
@@ -41,11 +40,11 @@ class ItunesService {
       .catch(err => console.log(err))
   }
   // ----------------------------------------------------------------------
+
+
   addToPlaylist(drawMyPlaylistCallback, trackId) {
     let likedSong = _songs.find(song => song.trackId == trackId)
     if (likedSong) {
-      //make an http request to the server to save your song
-      //utilize an axios instance
       songAPI.post('/', likedSong)
         .then(res => {
           console.log(res)
