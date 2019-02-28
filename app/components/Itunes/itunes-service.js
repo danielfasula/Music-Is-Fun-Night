@@ -44,6 +44,11 @@ class ItunesService {
 
   addToPlaylist(drawMyPlaylistCallback, trackId) {
     let likedSong = _songs.find(song => song.trackId == trackId)
+    let track = _playlist.find(track => track.title == likedSong.title)
+    if (track) {
+      alert("Song already in Playlist!")
+      return
+    }
     if (likedSong) {
       songAPI.post('/', likedSong)
         .then(res => {
