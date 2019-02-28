@@ -1,15 +1,35 @@
 import Song from "../../models/Song.js";
 
 let _songs = []
-//these should be songs from the bcw-server
+//these should be songs from the bcw-server 
+let _selectedSong = {}
 let _playlist = []
 
-//DO NOT MODIFY
+// @ts-ignore
+let songAPI = axios.create({
+  baseURL: "https://bcw-sandbox.herokuapp.com/api/danielfasula/songs",
+  timeout: 3000
+})
+
 class ItunesService {
   get Songs() {
     return _songs.map(s => new Song(s))
   }
 
+  getMyPlaylist(drawMyPlaylist) {
+    songAPI.get('/')
+      .then(res => {
+        console.log(res.data)
+        let myPlaylist = res.data.data
+        drawMyPlaylist(myPlaylist)
+      })
+      .catch(function (err) {
+        console.error(err)
+      })
+  }
+
+
+  //-------------------------DO NOT MODIFY--------------------------------
   getMusicByArtist(artist, callback) {
     var url = 'https://itunes.apple.com/search?callback=?&term=' + artist;
     // @ts-ignore
@@ -19,6 +39,32 @@ class ItunesService {
         callback()
       })
       .catch(err => console.log(err))
+  }
+  // ----------------------------------------------------------------------
+  addToPlaylist(drawMyPlaylistCallback, trackId) {
+    let likedSong = _songs.find(song => song.trackId == trackId)
+    if (likedSong) {
+      //make an http request to the server to save your song
+      //utilize an axios instance
+      songAPI.post('/', likedSong)
+        .then(res => {
+          console.log(res)
+          _playlist.push(res.data.data)
+          drawMyPlaylistCallback([..._playlist])
+        })
+        .catch(function (err) {
+          console.error(err)
+        })
+    }
+  }
+
+  removeFromPlaylist(drawMyPlaylistCallback, trackId) {
+    songAPI.delete(trackId)
+      .then(res => {
+        console.log(res)
+        //envoke get all songs in my playlist method
+        this.getMyPlaylist(drawMyPlaylistCallback)
+      })
   }
 }
 

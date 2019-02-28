@@ -7,10 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Music Is Fun!</title>
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
-<body>
+<body class="bg">
     <form class="form-inline" onsubmit="app.controllers.itunesCtrl.getMusic(event)">
         <!--DO NOT MODIFY THE ID OR ONCLICK ATTRIBUTES IN THIS FORM-->
         <div class="form-group">
@@ -18,10 +19,18 @@
             <button type="submit" class="btn btn-primary" id="get-music-button">Get Music</button>
         </div>
     </form>
-    <div id="songs">
-
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6" id="my-playlist"></div>
+            <div class="col-6">
+                <div class="row" id="songs"></div>
+            </div>
+        </div>
     </div>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="module" src="app/main.js"></script>
 </body>
 
